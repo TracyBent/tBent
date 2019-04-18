@@ -12,7 +12,7 @@ class SmartphoneReviews(models.Model):
 	author=models.ForeignKey(User, on_delete=models.CASCADE)
 
 	def __str__(self):
-		return self.type
+		return self.rating
 
 
 class SmartwatchReviews(models.Model):
@@ -23,7 +23,7 @@ class SmartwatchReviews(models.Model):
 	author=models.ForeignKey(User, on_delete=models.CASCADE)
 
 	def __str__(self):
-		return self.type
+		return self.rating
 
 
 
@@ -35,6 +35,6 @@ class TabletReviews(models.Model):
 	author=models.ForeignKey(User, on_delete=models.CASCADE)
 
 	def __str__(self):
-		return self.type
+		return self.rating
 
 # Create your models here.
