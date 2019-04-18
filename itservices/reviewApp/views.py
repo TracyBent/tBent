@@ -74,4 +74,7 @@ def tablet(request):
 
 
 
+
+
+
 # Create your views here.
