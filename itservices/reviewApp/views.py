@@ -1,45 +1,48 @@
 from django.shortcuts import render
+from .models import SmartphoneReviews 
+from .models import SmartwatchReviews 
+from .models import TabletReviews 
 
 
-smartphoneReviews = [
+# SmartphoneReviews = [
 
-{
-	'author': 'Tom Smith',	
-	'rating': '5 Stars',	
-	'review': 'It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',	
-	'date': '17/04/2019'	
+# {
+# 	'author': 'Tom Smith',	
+# 	'rating': '5 Stars',	
+# 	'review': 'It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',	
+# 	'date': '17/04/2019'	
 		
-},
+# },
 
-]
+# ]
 
-smartwatchReviews = [
+# SmartwatchReviews = [
 
-{
-	'author': 'Tracy Bent',	
-	'rating': '3 Stars',	
-	'review': 'It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',	
-	'date': '17/04/2019'	
+# {
+# 	'author': 'Tracy Bent',	
+# 	'rating': '3 Stars',	
+# 	'review': 'It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',	
+# 	'date': '17/04/2019'	
 		
-},
+# },
 
 
-]
+# ]
 
 
-tabletReviews = [
+# TabletReviews = [
 
-{
-	'author': 'Salma Shikdar',	
-	'rating': '2 Stars',	
-	'review': 'It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',	
-	'date': '17/04/2019'	
+# {
+# 	'author': 'Salma Shikdar',	
+# 	'rating': '2 Stars',	
+# 	'review': 'It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',	
+# 	'date': '17/04/2019'	
 		
-},
+# },
 
 
 
-]
+# ]
 
 
 def home(request):
@@ -53,19 +56,19 @@ def contact(request):
 
 def smartphone(request):
 	daily_report= {
-	'smartphoneReviews': smartphoneReviews
+	'smartphoneReviews': SmartphoneReviews.objects.all()
 	}
 	return render (request, 'reviewApp/smartphone.html', daily_report)
 
 def smartwatch(request):
 	daily_report= {
-	'smartwatchReviews': smartwatchReviews
+	'smartwatchReviews': SmartwatchReviews.objects.all()
 	}
 	return render (request, 'reviewApp/smartwatch.html', daily_report)
 
 def tablet(request):
 	daily_report= {
-	'tabletReviews': tabletReviews
+	'tabletReviews': TabletReviews.objects.all()
 	}
 	return render (request, 'reviewApp/tablet.html', daily_report)
 
