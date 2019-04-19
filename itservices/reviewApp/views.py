@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import SmartphoneReviews 
 from .models import SmartwatchReviews 
 from .models import TabletReviews 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
 
 
 # SmartphoneReviews = [
@@ -39,6 +40,21 @@ class PostListView(ListView):
 	template_name = 'reviewApp/smartphone.html'
 	context_object_name = 'smartphoneReviews'
 	ordering = ['-date']
+	paginate_by = 5
+
+class UserPostListView(ListView):	
+
+	model = SmartphoneReviews
+	template_name = 'reviewApp/user_smartphoneReviews.html'
+	context_object_name = 'smartphoneReviews'
+	paginate_by = 5
+
+	def get_queryset(self):
+
+		user=get_object_or_404(User,
+		username=self.kwargs.get('username'))
+		return SmartphoneReviews.objects.filter(author=user).order_by('-date')
+
 
 class PostDetailView(DetailView):
 	model = SmartphoneReviews
