@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import SmartphoneReviews 
 from .models import SmartwatchReviews 
 from .models import TabletReviews 
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 # SmartphoneReviews = [
@@ -13,34 +15,6 @@ from .models import TabletReviews
 # 	'date': '17/04/2019'	
 		
 # },
-
-# ]
-
-# SmartwatchReviews = [
-
-# {
-# 	'author': 'Tracy Bent',	
-# 	'rating': '3 Stars',	
-# 	'review': 'It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',	
-# 	'date': '17/04/2019'	
-		
-# },
-
-
-# ]
-
-
-# TabletReviews = [
-
-# {
-# 	'author': 'Salma Shikdar',	
-# 	'rating': '2 Stars',	
-# 	'review': 'It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',	
-# 	'date': '17/04/2019'	
-		
-# },
-
-
 
 # ]
 
@@ -60,11 +34,56 @@ def smartphone(request):
 	}
 	return render (request, 'reviewApp/smartphone.html', daily_report)
 
+class PostListView(ListView):
+	model = SmartphoneReviews
+	template_name = 'reviewApp/smartphone.html'
+	context_object_name = 'smartphoneReviews'
+	ordering = ['-date']
+
+class PostDetailView(DetailView):
+	model = SmartphoneReviews
+
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+	model = SmartphoneReviews
+	fields = ['rating', 'review']
+
+	def form_valid(self, form):
+
+		form.instance.author = self.request.user
+		return super() .form_valid(form)
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+
+	model = SmartphoneReviews
+	fields = ['rating', 'review']
+
+
+	def test_func(self):
+		smartphoneReviews = self.get_object()
+		if self.request.user == smartphoneReviews.author:
+			return True
+		return False
+
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+
+	model = SmartphoneReviews
+	success_url = '/smartphone'
+
+	def test_func(self):
+		smartphoneReviews = self.get_object()
+		if self.request.user == smartphoneReviews.author:
+			return True
+		return False
+
+
 def smartwatch(request):
 	daily_report= {
 	'smartwatchReviews': SmartwatchReviews.objects.all()
 	}
 	return render (request, 'reviewApp/smartwatch.html', daily_report)
+
 
 def tablet(request):
 	daily_report= {

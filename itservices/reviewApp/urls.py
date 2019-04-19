@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views 
+from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView
 
 
 urlpatterns = [
@@ -10,7 +11,15 @@ path('about/', views.about, name='reviewApp-about'),
 
 path('contact/', views.contact, name='reviewApp-contact'),
 
-path('smartphone/', views.smartphone, name='reviewApp-smartphone'),
+path('smartphone/', PostListView.as_view(), name='reviewApp-smartphone'),
+
+path('smartphoneReviews/<int:pk>', PostDetailView.as_view(), name='smartphoneReviews-detail'),
+
+path('smartphoneReviews/new/', PostCreateView.as_view(), name='smartphoneReviews-create'),
+
+path('smartphoneReviews/<int:pk>/update/', PostUpdateView.as_view(),name='smartphoneReviews-update'),
+
+path('smartphoneReviews/<int:pk>/delete/', PostDeleteView.as_view(),name='smartphoneReviews-delete'),
 
 path('smartwatch/', views.smartwatch, name='reviewApp-smartwatch'),
 
