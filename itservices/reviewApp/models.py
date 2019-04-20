@@ -41,4 +41,21 @@ class TabletReviews(models.Model):
 	def __str__(self):
 		return self.rating
 
+
+class Product(models.Model):
+
+	Product_Name=models.CharField(max_length=50)
+	Manufacturer=models.CharField(max_length=50)
+	Average_Cost =models.CharField(max_length=5)
+	Category=models.CharField(max_length=50)
+	Release_Date=models.DateTimeField(default=timezone.now)
+	Description=models.TextField()
+	image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+
+	def __str__(self):
+		return self.Product_Name
+
+
+
+
 # Create your models here.
