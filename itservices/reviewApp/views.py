@@ -35,6 +35,7 @@ def smartphone(request):
 	}
 	return render (request, 'reviewApp/smartphone.html', daily_report)
 
+
 class PostListView(ListView):
 	model = SmartphoneReviews
 	template_name = 'reviewApp/smartphone.html'
@@ -58,6 +59,7 @@ class UserPostListView(ListView):
 
 class PostDetailView(DetailView):
 	model = SmartphoneReviews
+
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
