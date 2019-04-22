@@ -56,6 +56,18 @@ class Product(models.Model):
 		return self.Product_Name
 
 
+class NewsArticle(models.Model):
+
+	Header=models.CharField(max_length=100)
+	Description=models.TextField()
+	Date_Posted=models.DateTimeField(default=timezone.now)
+	image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+
+	def __str__(self):
+		return self.Header
+
+
+
 
 
 # Create your models here.
