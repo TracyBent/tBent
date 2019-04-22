@@ -135,4 +135,16 @@ def tablet(request):
 
 
 
+class PostListView2(ListView):
+	model = TabletReviews
+	template_name = 'reviewApp/tablet.html'
+	context_object_name = 'tabletReviews'
+	
+
+	def get_context_data(self, **kwargs):
+		context = super(PostListView2, self).get_context_data(**kwargs)
+		context ['productdetails'] = Product.objects.filter(Product_Name = 'Galaxy Tab S3')
+		return context 
+
+
 # Create your views here.
