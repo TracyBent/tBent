@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from .models import SmartphoneReviews 
 from .models import SmartwatchReviews 
 from .models import TabletReviews 
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from .models import Product
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 
@@ -31,7 +32,8 @@ def contact(request):
 
 def smartphone(request):
 	daily_report= {
-	'smartphoneReviews': SmartphoneReviews.objects.all()
+	'smartphoneReviews': SmartphoneReviews.objects.all(),
+	'productdetails': Product.objects.all() #filter(Product_Name = 'Galaxy Tab S3')
 	}
 	return render (request, 'reviewApp/smartphone.html', daily_report)
 
@@ -42,6 +44,13 @@ class PostListView(ListView):
 	context_object_name = 'smartphoneReviews'
 	ordering = ['-date']
 	paginate_by = 5
+
+	def get_context_data(self, **kwargs):
+		context = super(PostListView, self).get_context_data(**kwargs)
+		context ['productdetails'] = Product.objects.filter(Product_Name = 'iPhone 8')
+		return context 
+
+
 
 class UserPostListView(ListView):	
 
@@ -103,13 +112,25 @@ def smartwatch(request):
 	return render (request, 'reviewApp/smartwatch.html', daily_report)
 
 
+class PostListView1(ListView):
+	model = SmartwatchReviews
+	template_name = 'reviewApp/smartwatch.html'
+	context_object_name = 'smartwatchReviews'
+	
+
+	def get_context_data(self, **kwargs):
+		context = super(PostListView1, self).get_context_data(**kwargs)
+		context ['productdetails'] = Product.objects.filter(Product_Name = 'Apple Watch S3')
+		return context 
+
+
+
 def tablet(request):
 	daily_report= {
 	'tabletReviews': TabletReviews.objects.all()
+
 	}
 	return render (request, 'reviewApp/tablet.html', daily_report)
-
-
 
 
 

@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User  
 from django.urls import reverse
 
 
@@ -23,7 +23,7 @@ class SmartwatchReviews(models.Model):
 
 	rating=models.CharField(max_length=50)
 	review=models.TextField()
-	date=models.DateTimeField(default=timezone.now)
+	date=models.DateTimeField(default=timezone.now).today()
 	author=models.ForeignKey(User, on_delete=models.CASCADE)
 
 	def __str__(self):
@@ -48,7 +48,7 @@ class Product(models.Model):
 	Manufacturer=models.CharField(max_length=50)
 	Average_Cost =models.CharField(max_length=5)
 	Category=models.CharField(max_length=50)
-	Release_Date=models.DateTimeField(default=timezone.now)
+	Release_Date=models.DateField(default=timezone.now)
 	Description=models.TextField()
 	image = models.ImageField(default='default.jpg', upload_to='profile_pics')
 

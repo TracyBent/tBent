@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views 
-from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, UserPostListView
+from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, UserPostListView, PostListView1
 
 
 urlpatterns = [
@@ -23,7 +23,10 @@ path('smartphoneReviews/<int:pk>/delete/', PostDeleteView.as_view(),name='smartp
 
 path('user/<str:username>', UserPostListView.as_view(), name='user-smartphoneReviews'),
 
-path('smartwatch/', views.smartwatch, name='reviewApp-smartwatch'),
+
+
+
+path('smartwatch/', PostListView1.as_view(), name='reviewApp-smartwatch'),
 
 path('tablet/', views.tablet, name='reviewApp-tablet'),
 
